@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=newshub_user
+      - DB_PASSWORD=newshub_pass
+      - DB_NAME=newshub_db
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-""}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-""}
+      - AWS_REGION=${AWS_REGION:-"us-east-1"}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME:-""}
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pass
+      - MYSQL_DATABASE=newshub_db
+      - MYSQL_USER=newshub_user
+      - MYSQL_PASSWORD=newshub_pass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  db_data:

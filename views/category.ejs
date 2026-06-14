@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub | <%= currentCategory %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:wght@400;500;600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS reset and base */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Lora', serif; 
+            background-color: #ffffff; 
+            color: #000000; 
+            margin: 0; 
+            padding: 0;
+        }
+        a { color: #000000; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Header */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+        }
+        .header-main {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .logo { 
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem; 
+            font-weight: 900; 
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+        .date-line {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 8px 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 10px 20px 0;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 12px 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-bottom: 1px solid #000;
+            margin: 0 20px 20px;
+            text-transform: uppercase;
+        }
+        
+        /* Category Specific Styles */
+        .category-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 20px 0;
+            margin: 0 20px 40px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        .simple-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .article {
+            border-bottom: 1px solid #000;
+            padding-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-title { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            margin: 0 0 10px 0; 
+            line-height: 1.1;
+            font-size: 1.8rem;
+        }
+        .article-meta {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #000;
+            font-weight: 600;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+        }
+        .article-excerpt { 
+            font-size: 1.05rem; 
+            line-height: 1.5;
+            margin: 0;
+            text-align: justify;
+        }
+        .article-image { 
+            width: 100%; 
+            height: auto; 
+            display: block;
+            margin-bottom: 15px;
+            filter: grayscale(100%);
+            border: 1px solid #000;
+            padding: 2px;
+            object-fit: cover;
+            aspect-ratio: 3/2;
+        }
+        
+        /* Footer */
+        .site-footer {
+            border-top: 4px solid #000;
+            padding: 40px 20px;
+            margin-top: 60px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        .footer-col h4 {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col li { margin-bottom: 8px; font-size: 0.9rem; }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            text-align: center;
+            border-top: 1px solid #000;
+            padding-top: 20px;
+            font-size: 0.8rem;
+            color: #000;
+        }
+        @media (max-width: 1000px) {
+            .simple-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span>Edition: India</span>
+        <a href="/dashboard" style="font-weight: bold; border: 1px solid #000; padding: 4px 10px;">Reporter Dashboard</a>
+    </div>
+    
+    <div class="header-main">
+        <a href="/"><h1 class="logo">NewsHub</h1></a>
+    </div>
+    
+    <div class="date-line">
+        <span>Vol. CLXXII, No. 59,902</span>
+        <span id="current-date"></span>
+        <span>Printed in New Delhi, Mumbai, Bengaluru</span>
+    </div>
+    <script>
+        const d = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerText = d.toLocaleDateString('en-IN', options).toUpperCase();
+    </script>
+    
+    <div class="main-nav">
+        <a href="/category/National">National</a>
+        <a href="/category/World">World</a>
+        <a href="/category/Business">Business</a>
+        <a href="/category/Technology">Tech</a>
+        <a href="/category/Science">Science</a>
+        <a href="/category/Health">Health</a>
+        <a href="/category/Sports">Sports</a>
+        <a href="/category/Arts">Arts</a>
+        <a href="/category/Opinion">Opinion</a>
+    </div>
+
+    <div class="container">
+        <h1 class="category-header"><%= currentCategory %></h1>
+        
+        <div class="simple-grid">
+            <% if(articles.length === 0) { %>
+                <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+                    <p style="font-size: 1.5rem; font-style: italic; font-family: 'Playfair Display', serif;">No articles published in this section yet.</p>
+                    <a href="/" style="font-weight: bold; text-transform: uppercase; font-size: 0.85rem; border-bottom: 1px solid #000;">Return to Front Page</a>
+                </div>
+            <% } %>
+            
+            <% articles.forEach(article => { %>
+                <div class="article">
+                    <a href="#"><h2 class="article-title"><%= article.title %></h2></a>
+                    <div class="article-meta">
+                        By NewsHub Staff | 
+                        <%= new Date(article.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                    </div>
+                    <% if(article.image_url) { %>
+                        <img src="<%= article.image_url %>" class="article-image" onerror="this.style.display='none'">
+                    <% } %>
+                    <p class="article-excerpt"><%= article.content.substring(0, 250) %>...</p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    
+    <!-- Comprehensive Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">NewsHub</div>
+                <p style="font-size: 0.85rem; text-align: justify;">Dedicated to truthful, comprehensive, and unparalleled journalism since 1920. Serving the nation with integrity.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sections</h4>
+                <ul>
+                    <li><a href="/category/National">National News</a></li>
+                    <li><a href="/category/World">Global Affairs</a></li>
+                    <li><a href="/category/Business">Business & Tech</a></li>
+                    <li><a href="/category/Science">Science & Health</a></li>
+                    <li><a href="/category/Sports">Sports & Entertainment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Subscribe</a></li>
+                    <li><a href="#">Manage Account</a></li>
+                    <li><a href="#">Home Delivery</a></li>
+                    <li><a href="#">Email Newsletters</a></li>
+                    <li><a href="#">Corporate Subscriptions</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Editorial Guidelines</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <script>document.write(new Date().getFullYear())</script> NewsHub Media Company. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

@@ -30,17 +30,17 @@ The architecture was designed for high availability, fault tolerance, and cost e
 graph TD
     Client[Users & Reporters] -->|HTTP/HTTPS| EC2[AWS EC2 Instance]
     
-    subgraph AWS Cloud
+    subgraph AWS_Cloud [AWS Cloud]
         EC2
         S3[AWS S3 Bucket]
         
-        subgraph Docker Environment
+        subgraph Docker_Environment [Docker Environment]
             NodeApp[Node.js / Express Web Server]
             MySQL[(MySQL 8.0 Database)]
             NodeApp <-->|Read/Write Data| MySQL
         end
         
-        EC2 --- Docker Environment
+        EC2 --- NodeApp
         NodeApp -->|Uploads Image Files| S3
     end
 ```

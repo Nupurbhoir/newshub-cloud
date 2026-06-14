@@ -26,6 +26,25 @@ The architecture was designed for high availability, fault tolerance, and cost e
 * **Database:** MySQL 8.0 securely handles article data and metadata.
 * **Storage:** AWS S3 stores all media assets independently of the compute instance.
 
+```mermaid
+graph TD
+    Client[Users & Reporters] -->|HTTP/HTTPS| EC2[AWS EC2 Instance]
+    
+    subgraph AWS Cloud
+        EC2
+        S3[AWS S3 Bucket]
+        
+        subgraph Docker Environment
+            NodeApp[Node.js / Express Web Server]
+            MySQL[(MySQL 8.0 Database)]
+            NodeApp <-->|Read/Write Data| MySQL
+        end
+        
+        EC2 --- Docker Environment
+        NodeApp -->|Uploads Image Files| S3
+    end
+```
+
 *(Note: The live AWS EC2 and S3 instances used for the demonstration were spun down after successful deployment to adhere to budget constraints, highlighting cost-conscious cloud management).*
 
 ---
